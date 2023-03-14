@@ -44,7 +44,7 @@
     width: 100%;
     height: 100%;
     text-align: center;
-    background-color: #ffd300d1;
+    background-color: #b7afafe6;
     overflow: hidden;
     -webkit-transform: skewY(-30deg) rotate3d(0,0,1,60deg);
         -ms-transform: skewY(-30deg) rotate3d(0,0,1,60deg);
@@ -52,7 +52,7 @@
   }
 
   #center-letter{
-    background-color:#b7afafe6;
+    background-color:#ffd300d1;;
   }
 
   input[type="text"]
