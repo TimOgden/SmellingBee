@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
+    <title>Smelling Bee</title>
+    <link rel="icon" href="static/cute_bee.png" type="image/icon type">
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
     <style>
       body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
 
@@ -15,12 +17,23 @@
       #messages > li:nth-child(odd) { background: #efefef; }
     </style>
   </head>
-  <body>
-    <div id="letters">
-      <button id="letter0">
-        <img src="static/hexagon.png">
-        <span>E</span>
-      </button>
+  <body onload="test_letters()">
+    <div class="cursor">
+      <p id="inputword" style="display:flex;"> <span id="testword"></span><span id="cursor">|</span></p>
+    </div>
+    <div style="display:flex; flex-direction:column; align-items:center;">
+      <ul id="hexGrid"></ul>
+  
+      <div class="button_container">
+        <button id="submit_button" type="button" class="button" onclick="submitWord()">Enter</button>
+        <button id="shuffle_button" type="button" class="button" onclick="shuffleLetters()">
+          <img src="static/shuffle_icon.png" style="width:1.2em">
+        
+        </button>
+        <button id="delete_button" type="button" class="button" onclick="deleteLetter()">Delete</button>
+          <!--<i style="align-self:center;"></i>-->
+        
+      </div>
     </div>
     <form id="form" action="">
       <input id="input" autocomplete="off" /><button>Send</button>
@@ -50,5 +63,12 @@
         
       });
   </script>
+  <script>
+    function buttonClick() {
+      console.log('clicked button!');
+    }
+  </script>
   </body>
 </html>
+
+<script type="text/javascript" src="static/js/smelling_bee.js"></script>
