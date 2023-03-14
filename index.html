@@ -16,7 +16,12 @@
     </style>
   </head>
   <body>
-    <ul id="messages"></ul>
+    <div id="letters">
+      <button id="letter0">
+        <img src="static/hexagon.png">
+        <span>E</span>
+      </button>
+    </div>
     <form id="form" action="">
       <input id="input" autocomplete="off" /><button>Send</button>
     </form>
@@ -36,10 +41,13 @@
       });
 
       socket.on('chat message', function(msg) {
-        var item = document.createElement('li')
-        item.textContent = msg;
-        messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
+        if(['apples', 'carrots', 'sticks'].includes(msg)) {
+          var item = document.createElement('li')
+          item.textContent = msg;
+          messages.appendChild(item);
+          window.scrollTo(0, document.body.scrollHeight);
+        }
+        
       });
   </script>
   </body>
