@@ -14,7 +14,7 @@
     grid-column-end: span 2;
     position: relative;
     visibility:hidden;
-    background-color:solid yellow;
+    background-color:solid rgb(60, 60, 60);
     outline:1px solid transparent; /* fix for jagged edges in FF on hover transition */
   }
  
@@ -66,6 +66,7 @@
   .hex p {
     width: 100%;
     padding: 38%;
+    top: -19px;
     box-sizing:border-box;
     background-color:transparent;
     font-weight: 800;
