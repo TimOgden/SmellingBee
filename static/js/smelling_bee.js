@@ -54,7 +54,7 @@ function initialize_letters(letters){
 
 function clickLetter(char) {
     return function curried_func(e){
-        var tryword = document.getElementById("testword");
+        var tryword = document.getElementById("testword-" + socket.id);
         tryword.innerHTML = tryword.innerHTML + char.toUpperCase();
     }
 }

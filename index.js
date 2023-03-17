@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
+    console.log('socket connected with id ' + socket.id);
 
     io.emit('user connection', socket.id);
 
@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
         io.emit('user disconnection', socket.id);
-        console.log('user disconnected');
+        console.log('user ' + socket.id + ' disconnected');
     });
 });
 
