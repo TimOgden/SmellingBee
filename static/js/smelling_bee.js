@@ -1,6 +1,8 @@
 var socket = io();
 var cursorsElement = document.getElementById('cursors');
 
+var letters = ['A','B','C','D','E','F','G'];
+
 socket.on('user connection', function(cursors_obj) {
     cursorsElement.innerHTML = '';
     addTextBox(socket.id, cursors_obj[socket.id]);
@@ -43,13 +45,8 @@ socket.on('user disconnection', function(id) {
     row.parentElement.remove();
 });
 
-function test_letters() {
-    initialize_letters(['A','B','C','D','E','F','G']);
-}
-
 //Creates the hexagon grid of 7 letters with middle letter as special color
-function initialize_letters(letters){
-    console.log('initializing letters!');
+function initialize_letters(){
     var hexgrid = document.getElementById('hexGrid')
     for(var i=0; i<letters.length; i++){
         var char = letters[i];
@@ -86,8 +83,41 @@ function clickLetter(char) {
     }
 }
 
+Array.prototype.shuffle = function() {
+    let input = this;
+    for (let i = input.length-1; i >=0; i--) {
+      let randomIndex = Math.floor(Math.random()*(i+1)); 
+      let itemAtIndex = input[randomIndex]; 
+      input[randomIndex] = input[i]; 
+      input[i] = itemAtIndex;
+    }
+    return input;
+  }
+  
+function shuffleLetters() {
+    var hexgrid = document.getElementById('hexGrid');
+    hexgrid.classList.remove('switching');
+    window.setTimeout(function() {
+        hexgrid.classList.add('switching');
+    }, 50);
+    
+    letters.shuffle()
+    //get center letter back to letter[3]
+    var centerIndex = letters.indexOf(centerLetter);
+    if(letters[3] != centerLetter) {
+        var temp = letters[3];
+        letters[3] = centerLetter;
+        letters[centerIndex] = temp;
+    }
+    
+    while (hexgrid.firstChild) {
+        hexgrid.removeChild(hexgrid.firstChild);
+    }
+    
+    initialize_letters()
+}
+
 socket.on('wordrefresh', function(html, id) {
-    console.log('updating word for ' + id);
     var tryword = document.getElementById("testword-" + id);
     tryword.innerHTML = html;
 });

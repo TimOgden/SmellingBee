@@ -107,6 +107,16 @@ body {
     padding-bottom: 5.4%;
     margin-bottom:2vh;
   }
+  
+  #hexGrid.switching {
+    animation: fade .25s linear;
+  }
+
+  @keyframes fade {
+    0%,100% { opacity: 1 }
+    50% { opacity: 0 }
+  }
+
   .hex:nth-child(5n+1){ /* first hexagon of odd rows */
     grid-column-start: 2;
   }
