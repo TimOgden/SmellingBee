@@ -117,6 +117,14 @@ function shuffleLetters() {
     initialize_letters()
 }
 
+function deleteLetter() {
+    var tryWord = document.getElementById('testword-' + socket.id);
+    if (tryWord.innerHTML.length > 0) {
+        tryWord.innerHTML = tryWord.innerHTML.slice(0,-1);
+    }
+    socket.emit('wordupdate', tryWord.innerHTML);
+}
+
 socket.on('wordrefresh', function(html, id) {
     var tryword = document.getElementById("testword-" + id);
     tryword.innerHTML = html;
