@@ -16,12 +16,12 @@ cursors = {};
 
 io.on('connection', (socket) => {
     console.log('socket connected with id ' + socket.id);
-    cursors[socket.id] = '|';
+    cursors[socket.id] = '';
     io.emit('user connection', cursors);
 
     socket.on('wordupdate', (html) => {
         cursors[socket.id] = html;
-        io.emit('wordrefresh', html, socket.id);
+        socket.broadcast.emit('wordrefresh', html, socket.id);
     });
 
     socket.on('disconnect', () => {
