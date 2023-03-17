@@ -1,22 +1,28 @@
 var socket = io();
 var cursors = document.getElementById('cursors');
 
-socket.on('user connection', function(id) {
-    var row = document.createElement('li');
-    var inputword = document.createElement('p');
-    inputword.setAttribute('id', 'inputword-' + id);
-    var testword = document.createElement('span');
-    testword.setAttribute('id', 'testword-' + id);
-    testword.setAttribute('class', 'testword');
-    var cursor = document.createElement('span');
-    cursor.setAttribute('id', 'cursor-' + id);
-    cursor.setAttribute('class', 'cursor');
-    cursor.innerHTML = '|';
+socket.on('user connection', function(cursors_obj) {
+    console.log(cursors_obj);
+    var cursorsElement = document.getElementById('cursors');
+    cursorsElement.innerHTML = '';
+    for (const id in cursors_obj) {
+        var row = document.createElement('li');
+        var inputword = document.createElement('p');
+        inputword.setAttribute('id', 'inputword-' + id);
+        var testword = document.createElement('span');
+        testword.setAttribute('id', 'testword-' + id);
+        testword.setAttribute('class', 'testword');
+        var cursor = document.createElement('span');
+        cursor.setAttribute('id', 'cursor-' + id);
+        cursor.setAttribute('class', 'cursor');
+        cursor.innerHTML = cursors_obj[id];
 
-    inputword.appendChild(testword);
-    inputword.appendChild(cursor);
-    row.appendChild(inputword);
-    cursors.appendChild(row);
+        inputword.appendChild(testword);
+        inputword.appendChild(cursor);
+        row.appendChild(inputword);
+        cursors.appendChild(row);
+    }
+    
 });
 
 socket.on('user disconnection', function(id) {
@@ -65,7 +71,7 @@ function clickLetter(char) {
         var tryword = document.getElementById("testword-" + socket.id);
         tryword.innerHTML = tryword.innerHTML + char.toUpperCase();
         console.log('test');
-        socket.emit('wordupdate', tryword.innerHTML);
+        socket.broadcast.emit('wordupdate', tryword.innerHTML);
     }
 }
 
