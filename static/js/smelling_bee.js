@@ -34,5 +34,8 @@ function initialize_letters(letters){
 }
 
 function clickLetter(char) {
-    console.log('Clicked ' + char);
+    return function curried_func(e){
+        var tryword = document.getElementById("testword");
+        tryword.innerHTML = tryword.innerHTML + char.toUpperCase();
+    }
 }
