@@ -17,9 +17,8 @@ io.on('connection', (socket) => {
 
     io.emit('user connection', socket.id);
 
-    socket.on('chat message', (msg) => {
-        io.emit('chat message', msg);
-        console.log('message: ' + msg);
+    socket.on('wordupdate', (html) => {
+        io.emit('wordrefresh', html, socket.id);
     });
 
     socket.on('disconnect', () => {
@@ -27,6 +26,8 @@ io.on('connection', (socket) => {
         console.log('user ' + socket.id + ' disconnected');
     });
 });
+
+
 
 server.listen(3000, () => {
     console.log('listening on *:3000');

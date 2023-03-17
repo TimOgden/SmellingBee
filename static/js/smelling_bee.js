@@ -14,7 +14,6 @@ socket.on('user connection', function(id) {
 });
 
 socket.on('user disconnection', function(id) {
-    cursors.innerHTML = '';
 });
 
 function test_letters() {
@@ -56,5 +55,13 @@ function clickLetter(char) {
     return function curried_func(e){
         var tryword = document.getElementById("testword-" + socket.id);
         tryword.innerHTML = tryword.innerHTML + char.toUpperCase();
+        console.log('test');
+        socket.emit('wordupdate', tryword.innerHTML);
     }
 }
+
+socket.on('wordrefresh', function(html, id) {
+    console.log('updating word for ' + id);
+    var tryword = document.getElementById("testword-" + id);
+    tryword.innerHTML = html;
+});
