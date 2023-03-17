@@ -1,3 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  align-content:center;
+  vertical-align:center;
+  display:flex;
+  flex-direction: column;
+  justify-content:center; 
+}
+
+.container {
+  display:flex;
+  justify-content:center;
+}
+
 #hexGrid {
     display: grid;
     grid-gap:6px;
@@ -66,7 +83,6 @@
   .hex p {
     width: 100%;
     padding: 38%;
-    top: -19px;
     box-sizing:border-box;
     background-color:transparent;
     font-weight: 800;
@@ -96,4 +112,60 @@
   }
   .hex:nth-child(5n+3){ /* first hexagon of even rows */
       grid-column-start: 1;
+  }
+
+  #cursors {
+    text-align: center;
+    list-style-type: none;
+  }
+
+
+  .testword {
+    height:50px; 
+    text-align: center;  
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.5rem;
+    padding-top:3px;
+  }
+
+  .cursor {
+    position: relative;
+    margin: 0 auto;
+    margin-bottom:10px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 100;
+    height:6vw;
+    color: rgb(255, 187, 0); 
+  }
+
+  #shuffle_button {
+    padding: 10px 10px;
+  }
+  
+  .button_container {
+   display:-webkit-inline-flex; 
+   margin-bottom:5vh; 
+   width: 300px;
+   height: 10%;
+  
+  }
+  .button {
+    background-color: white; 
+    border: 2px solid #e7e7e7;
+    margin: 0 auto;
+    color: black;
+    padding: 0px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: .8em;
+    border-radius:30px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #e7e7e7;
+    color: black;
+    border: 2px solid #e7e7e7;
   }
