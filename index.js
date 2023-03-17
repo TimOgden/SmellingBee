@@ -15,12 +15,15 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
     console.log('a user connected');
 
+    io.emit('user connection', socket.id);
+
     socket.on('chat message', (msg) => {
         io.emit('chat message', msg);
         console.log('message: ' + msg);
     });
 
     socket.on('disconnect', () => {
+        io.emit('user disconnection', socket.id);
         console.log('user disconnected');
     });
 });

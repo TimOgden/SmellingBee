@@ -1,3 +1,22 @@
+var socket = io();
+var cursors = document.getElementById('cursors');
+
+socket.on('user connection', function(id) {
+    var row = document.createElement('li');
+    var inputword = document.createElement('p');
+    inputword.setAttribute('id', 'inputword-' + id);
+    var testword = document.createElement('span');
+    testword.setAttribute('id', 'testword-' + id);
+
+    inputword.appendChild(testword);
+    row.appendChild(inputword);
+    cursors.appendChild(row);
+});
+
+socket.on('user disconnection', function(id) {
+    cursors.innerHTML = '';
+});
+
 function test_letters() {
     initialize_letters(['A','B','C','D','E','F','G']);
 }
