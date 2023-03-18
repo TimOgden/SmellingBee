@@ -12,9 +12,6 @@ function loggedInThroughGoogle(googleUser) {
         data: JSON.stringify(googleUser),
         success: function(data) {
             console.log(data);
-            var img = document.createElement('img');
-            img.setAttribute('src', data.picture);
-            document.appendChild(img);
         },
         error: function(error) {
             console.log(error);
