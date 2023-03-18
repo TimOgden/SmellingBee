@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Orthagraphy Wasp</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="icon" href="static/cute_bee.png" type="image/icon type">
     <link rel="stylesheet" type="text/css" href="styles/style.css" />
     <style>
@@ -18,6 +19,23 @@
     </style>
   </head>
   <body onload="initialize_letters()">
+    <div id="g_id_onload"
+        data-client_id="22748110971-6jml398qf7n6fi6sfm3s420ssej2e4r0.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="popup"
+        data-callback="loginCallback"
+        data-itp_support="true">
+    </div>
+
+    <div class="g_id_signin"
+        data-type="standard"
+        data-shape="rectangular"
+        data-theme="outline"
+        data-text="signin_with"
+        data-size="large"
+        data-logo_alignment="left",
+        id="signin-button">
+    </div>
     <ul id="cursors"></ul>
     <div style="display:flex; flex-direction:column; align-items:center;">
       <ul id="hexGrid"></ul>

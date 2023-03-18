@@ -3,6 +3,11 @@ var cursorsElement = document.getElementById('cursors');
 
 var letters = ['A','B','C','D','E','F','G'];
 
+function loginCallback() {
+    var googleLogin = document.getElementById('signin-button');
+    googleLogin.style.display = 'none';
+}
+
 socket.on('user connection', function(cursors_obj) {
     cursorsElement.innerHTML = '';
     addTextBox(socket.id, cursors_obj[socket.id]);
