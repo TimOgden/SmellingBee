@@ -3,9 +3,7 @@ var cursorsElement = document.getElementById('cursors');
 
 var letters = ['A','B','C','D','E','F','G'];
 
-function loginCallback() {
-    var googleLogin = document.getElementById('signin-button');
-    googleLogin.style.display = 'none';
+function loggedInThroughGoogle() {
 }
 
 socket.on('user connection', function(cursors_obj) {
