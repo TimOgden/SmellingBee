@@ -109,7 +109,7 @@ body {
   }
   
   #hexGrid.switching {
-    animation: fade .25s linear;
+    animation: fade .5s linear;
   }
 
   @keyframes fade {
