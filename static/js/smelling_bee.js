@@ -3,8 +3,28 @@ var cursorsElement = document.getElementById('cursors');
 
 var letters = ['A','B','C','D','E','F','G'];
 
-function loggedInThroughGoogle() {
+function loggedInThroughGoogle(googleUser) {
+    $.ajax({
+        type: 'POST',
+        url: '/loginGoogle',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(googleUser),
+        success: function(data) {
+            console.log(data);
+            var img = document.createElement('img');
+            img.setAttribute('src', data.picture);
+            document.appendChild(img);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
 }
+
+socket.on('google-signin', function(googleInfo) {
+    console.log(googleInfo.email);
+});
 
 socket.on('user connection', function(cursors_obj) {
     cursorsElement.innerHTML = '';
