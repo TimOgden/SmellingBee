@@ -17,9 +17,10 @@ function loggedInThroughGoogle(googleUser) {
             console.log(error);
         }
     });
+    socket.emit('google signin', googleUser);
 }
 
-socket.on('user connection', function(cursors_obj) {
+socket.on('redraw cursors', function(cursors_obj) {
     cursorsElement.innerHTML = '';
     addTextBox(socket.id, cursors_obj[socket.id]);
 
@@ -48,7 +49,7 @@ function addTextBox(id, val) {
     var testword = document.createElement('span');
     testword.setAttribute('id', 'testword-' + id);
     testword.setAttribute('class', 'testword');
-    testword.innerHTML = val;
+    testword.innerHTML = val.tryword;
     var cursor = document.createElement('span');
     cursor.setAttribute('id', 'cursor-' + id);
     cursor.setAttribute('class', 'cursor');

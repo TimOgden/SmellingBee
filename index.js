@@ -32,8 +32,18 @@ cursors = {};
 
 io.on('connection', (socket) => {
     console.log('socket connected with id ' + socket.id);
-    cursors[socket.id] = '';
-    io.emit('user connection', cursors);
+    cursors[socket.id] = {
+        tryword: '',
+        color: '[255, 187, 0]'
+    };
+
+    socket.on('google signin', (googleData) => {
+        cursors[socket.id] = {
+            tryword: cursors[socket.id] ? cursors[socket.id].tryword : '',
+            color: googleData.preferredColor
+        };
+        io.emit('redraw cursors', cursors);
+    });
 
     socket.on('wordupdate', (html) => {
         cursors[socket.id] = html;
