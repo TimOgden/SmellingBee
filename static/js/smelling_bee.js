@@ -11,17 +11,13 @@ function loggedInThroughGoogle(googleUser) {
         dataType: 'json',
         data: JSON.stringify(googleUser),
         success: function(data) {
-            console.log(data);
+            updateUserData(data);
         },
         error: function(error) {
             console.log(error);
         }
     });
 }
-
-socket.on('google-signin', function(googleInfo) {
-    console.log(googleInfo.email);
-});
 
 socket.on('user connection', function(cursors_obj) {
     cursorsElement.innerHTML = '';
@@ -39,6 +35,11 @@ socket.on('user connection', function(cursors_obj) {
     }
     
 });
+
+function updateUserData(userData) {
+    var cursor = document.getElementById('cursor-' + socket.id);
+    cursor.setAttribute('style', `color: rgb(${userData.preferredColor.slice(1,-1)})`);
+}
 
 function addTextBox(id, val) {
     var row = document.createElement('li');

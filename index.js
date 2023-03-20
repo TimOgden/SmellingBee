@@ -43,7 +43,6 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         io.emit('user disconnection', socket.id);
         delete cursors[socket.id];
-        io.emit
         console.log('user ' + socket.id + ' disconnected');
     });
 });
