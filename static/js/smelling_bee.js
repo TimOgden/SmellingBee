@@ -11,13 +11,13 @@ function loggedInThroughGoogle(googleUser) {
         dataType: 'json',
         data: JSON.stringify(googleUser),
         success: function(data) {
-            updateUserData(data);
+            socket.emit('google signin', data);
         },
         error: function(error) {
             console.log(error);
         }
     });
-    socket.emit('google signin', googleUser);
+    
 }
 
 socket.on('redraw cursors', function(cursors_obj) {
@@ -37,11 +37,6 @@ socket.on('redraw cursors', function(cursors_obj) {
     
 });
 
-function updateUserData(userData) {
-    var cursor = document.getElementById('cursor-' + socket.id);
-    cursor.setAttribute('style', `color: rgb(${userData.preferredColor.slice(1,-1)})`);
-}
-
 function addTextBox(id, val) {
     var row = document.createElement('li');
     var inputword = document.createElement('p');
@@ -49,10 +44,13 @@ function addTextBox(id, val) {
     var testword = document.createElement('span');
     testword.setAttribute('id', 'testword-' + id);
     testword.setAttribute('class', 'testword');
-    testword.innerHTML = val.tryword;
+    testword.innerHTML = val.tryword ? val.tryword : '';
+    testword.setAttribute('style', `color: rgb(${val.color.slice(1,-1)})`);
+
     var cursor = document.createElement('span');
     cursor.setAttribute('id', 'cursor-' + id);
     cursor.setAttribute('class', 'cursor');
+    cursor.setAttribute('style', `color: rgb(${val.color.slice(1,-1)})`);
     cursor.innerHTML = '|';
 
     inputword.appendChild(testword);

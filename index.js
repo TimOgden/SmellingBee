@@ -16,10 +16,11 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
+cursors = {};
+
 app.post('/loginGoogle', (req, res) => {
     axios.post('http://127.0.0.1:5000/loginGoogle', req.body)
     .then(response => {
-        console.log(res);
         res.send(response.data);
     })
     .catch(err => {
@@ -28,13 +29,11 @@ app.post('/loginGoogle', (req, res) => {
     });
 });
 
-cursors = {};
-
 io.on('connection', (socket) => {
     console.log('socket connected with id ' + socket.id);
     cursors[socket.id] = {
         tryword: '',
-        color: '[255, 187, 0]'
+        color: '[255, 187, 0]' // default yellow color
     };
 
     socket.on('google signin', (googleData) => {
