@@ -179,3 +179,10 @@ body {
     color: black;
     border: 2px solid #e7e7e7;
   }
+
+  .profile-picture {
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    max-width: 16px;
+  }

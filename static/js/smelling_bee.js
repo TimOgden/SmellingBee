@@ -1,5 +1,6 @@
 var socket = io();
 var cursorsElement = document.getElementById('cursors');
+var usersElement = document.getElementById('users');
 
 var letters = ['A','B','C','D','E','F','G'];
 
@@ -22,6 +23,7 @@ function loggedInThroughGoogle(googleUser) {
 
 socket.on('redraw cursors', function(cursors_obj) {
     cursorsElement.innerHTML = '';
+    usersElement.innerHTML = '';
     addTextBox(socket.id, cursors_obj[socket.id]);
 
     let otherCursors = {};
@@ -57,6 +59,13 @@ function addTextBox(id, val) {
     inputword.appendChild(cursor);
     row.appendChild(inputword);
     cursors.appendChild(row);
+
+    var users = document.getElementById('users');
+    var userImage = document.createElement('img');
+    userImage.setAttribute('src', val.profilePicture);
+    userImage.setAttribute('class', 'profile-picture');
+    userImage.setAttribute('style', `border-color: rgb(${val.color.slice(1, -1)})`);
+    users.appendChild(userImage);
 }
 
 socket.on('user disconnection', function(id) {

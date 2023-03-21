@@ -39,7 +39,8 @@ io.on('connection', (socket) => {
     socket.on('google signin', (googleData) => {
         cursors[socket.id] = {
             tryword: cursors[socket.id] ? cursors[socket.id].tryword : '',
-            color: googleData.preferredColor
+            color: googleData.preferredColor,
+            profilePicture: googleData.picture
         };
         io.emit('redraw cursors', cursors);
     });
