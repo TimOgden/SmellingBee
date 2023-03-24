@@ -180,6 +180,11 @@ body {
     border: 2px solid #e7e7e7;
   }
 
+  #users {
+    padding-top: 10px;
+    padding-left: 5px;
+  }
+
   .profile-picture {
     border-radius: 50%;
     border-width: 1px;
