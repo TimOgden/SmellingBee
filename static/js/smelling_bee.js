@@ -1,6 +1,7 @@
 var socket = io();
 var cursorsElement = document.getElementById('cursors');
 var usersElement = document.getElementById('users');
+var email = '';
 
 var words = {};
 
@@ -13,6 +14,7 @@ function loggedInThroughGoogle(googleUser) {
         data: JSON.stringify(googleUser),
         success: function(data) {
             socket.emit('google signin', data);
+            email = data.email;
         },
         error: function(error) {
             console.log(error);
@@ -34,6 +36,10 @@ function loggedInThroughGoogle(googleUser) {
     })
     
 }
+
+socket.on('wordsubmit', function(words) {
+    this.words = words;
+});
 
 socket.on('redraw cursors', function(cursors_obj) {
     cursorsElement.innerHTML = '';
@@ -165,6 +171,17 @@ function deleteLetter() {
     if (tryWord.innerHTML.length > 0) {
         tryWord.innerHTML = tryWord.innerHTML.slice(0,-1);
     }
+    socket.emit('wordupdate', tryWord.innerHTML);
+}
+
+function submitWord() {
+    var tryWord = document.getElementById('testword-' + socket.id);
+    if (tryWord.innerHTML.length === 0) {
+        return;
+    }
+
+    socket.emit('wordsubmit', tryWord.innerHTML, email);
+    tryWord.innerHTML = '';
     socket.emit('wordupdate', tryWord.innerHTML);
 }
 

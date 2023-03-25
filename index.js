@@ -75,6 +75,21 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('wordrefresh', html, socket.id);
     });
 
+    socket.on('wordsubmit', (word, user) => {
+        const wordObj = words.all_words.find((w) => w.word === word);
+        if (!wordObj || wordObj.foundBy) {
+            return;
+        }
+        axios.post(`http://127.0.0.1:5000/date/${getCurrentDate()}/user/${user}/submit`, {"word": word})
+        .then(response => {
+            words = response.data;
+        })
+        .catch(error => {
+            console.log(error);
+        });
+        socket.emit('wordsubmit', words);
+    });
+
     socket.on('disconnect', () => {
         io.emit('user disconnection', socket.id);
         delete cursors[socket.id];
