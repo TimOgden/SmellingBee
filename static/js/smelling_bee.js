@@ -2,7 +2,7 @@ var socket = io();
 var cursorsElement = document.getElementById('cursors');
 var usersElement = document.getElementById('users');
 
-var letters = ['A','B','C','D','E','F','G'];
+var words = {};
 
 function loggedInThroughGoogle(googleUser) {
     $.ajax({
@@ -18,6 +18,20 @@ function loggedInThroughGoogle(googleUser) {
             console.log(error);
         }
     });
+
+    $.ajax({
+        type: 'GET',
+        url: '/words',
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(data) {
+            words = data;
+            initialize_letters(words.all_letters);
+        },
+        error: function(error) {
+            console.log(error);
+        }    
+    })
     
 }
 
@@ -75,7 +89,7 @@ socket.on('user disconnection', function(id) {
 });
 
 //Creates the hexagon grid of 7 letters with middle letter as special color
-function initialize_letters(){
+function initialize_letters(letters){
     var hexgrid = document.getElementById('hexGrid')
     for(var i=0; i<letters.length; i++){
         var char = letters[i];

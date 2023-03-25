@@ -17,6 +17,31 @@ app.get('/', (req, res) => {
 });
 
 cursors = {};
+words = {};
+
+function getCurrentDate() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}-${month}-${day}`;
+  }
+
+app.get('/words', (req, res) => {
+    if(Object.keys(words).length === 0) {
+        axios.get(`http://127.0.0.1:5000/date/${getCurrentDate()}/words`)
+        .then(response => {
+            words = response.data;
+            res.send(response.data);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).send('Internal server error');
+        });
+    } else {
+        res.send(words);
+    }
+})
 
 app.post('/loginGoogle', (req, res) => {
     axios.post('http://127.0.0.1:5000/loginGoogle', req.body)
