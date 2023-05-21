@@ -261,8 +261,6 @@ body {
 
 #foundWordsContainer {
   display: flex;
-  align-items: center;
-  justify-content: center;
   border: 1px solid black;
   border-radius: 10px;
   padding: 1px;
@@ -276,9 +274,9 @@ body {
   list-style-type: none; /* Removes bullet points */
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
   margin: 0;
+  margin-top: -5px;
+  margin-left: 10px;
   padding: 0;
 }
 
