@@ -19,16 +19,29 @@ app.get('/', (req, res) => {
 cursors = {};
 words = {};
 
-function getCurrentDate() {
-    const date = new Date();
+function getCurrentDate(date) {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
     return `${year}-${month}-${day}`;
   }
 
+app.get('/yesterday', (req, res) => {
+    let date = new Date();
+    date.setDate(date.getDate() - 1);
+
+    const dateStr = getCurrentDate(date);
+    axios.get(`http://127.0.0.1:5000/date/${dateStr}/summary`)
+    .then(response => {
+        res.send(response.data);
+    }).catch(err => {
+        console.log(err);
+        res.status(500).send('Interal server error');
+    });
+})
+
 app.get('/words', (req, res) => {
-    axios.get(`http://127.0.0.1:5000/date/${getCurrentDate()}/words`)
+    axios.get(`http://127.0.0.1:5000/date/${getCurrentDate(new Date())}/words`)
     .then(response => {
         words = response.data;
         res.send(response.data);
