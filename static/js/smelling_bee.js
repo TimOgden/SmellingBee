@@ -3,6 +3,8 @@ var cursorsElement = document.getElementById('cursors');
 var usersElement = document.getElementById('users');
 var email = '';
 
+var letters = '';
+
 var words = {};
 
 function loggedInThroughGoogle(googleUser) {
@@ -28,6 +30,7 @@ function loggedInThroughGoogle(googleUser) {
         dataType: 'json',
         success: function(data) {
             words = data;
+            letters = words.all_letters;
             initialize_letters(words.all_letters);
         },
         error: function(error) {
@@ -39,6 +42,30 @@ function loggedInThroughGoogle(googleUser) {
 
 socket.on('wordsubmit', function(words) {
     this.words = words;
+});
+
+socket.on('pointsscore', function(obj) {
+    if(obj.alreadyFound) {
+        wrongInput('#already-found', obj.id);
+    }
+    else if(!obj.hasCenterLetter) {
+        wrongInput('#miss-center', obj.id);
+    }
+    else if(!obj.validWord) {
+        wrongInput('#invalid-word', obj.id);
+    } else if(obj.points) {
+        showPoints(obj.points);
+        if(obj.isPangram) {
+            rightInput('#pangram');
+        } else if(obj.points < 5) {
+            rightInput('#good');
+        } else if(obj.points < 7) {
+            rightInput('#great');
+        } else {
+            rightInput('#amazing');
+        }
+        
+    }
 });
 
 socket.on('redraw cursors', function(cursors_obj) {
@@ -82,6 +109,7 @@ function addTextBox(id, val) {
 
     var users = document.getElementById('users');
     var userImage = document.createElement('img');
+    userImage.setAttribute('id', `profile-picture-${id}`);
     userImage.setAttribute('src', val.profilePicture);
     userImage.setAttribute('class', 'profile-picture');
     userImage.setAttribute('style', `border-color: rgb(${val.color.slice(1, -1)})`);
@@ -90,8 +118,10 @@ function addTextBox(id, val) {
 
 socket.on('user disconnection', function(id) {
     var row = document.getElementById('inputword-' + id);
-    if (!row) return;
-    row.parentElement.remove();
+    if (row) row.parentElement.remove();
+
+    var img = document.getElementById(`profile-picture-${id}`);
+    if (img) img.remove();
 });
 
 //Creates the hexagon grid of 7 letters with middle letter as special color
@@ -132,13 +162,13 @@ function clickLetter(char) {
     }
 }
 
-function wrongInput(selector){
+function wrongInput(selector, id){
     $(selector).fadeIn(1000);
     $(selector).fadeOut(500);
-    $("#cursor").hide();
-    $( "#testword" ).effect("shake", {times:2.5}, 450, function(){
+    $(`#cursor-${id}`).hide();
+    $( `#testword-${id}` ).effect("shake", {times:2.5}, 450, function(){
         clearInput();
-        $("#cursor").show();
+        $(`#cursor-${id}`).show();
       } );
   
   }
@@ -189,7 +219,7 @@ function shuffleLetters() {
         hexgrid.removeChild(hexgrid.firstChild);
     }
     
-    initialize_letters()
+    initialize_letters(letters)
 }
 
 function deleteLetter() {
@@ -207,7 +237,8 @@ function submitWord() {
     }
 
     if(tryWord.innerHTML.length < 4){ 
-        wrongInput("#too-short");
+        wrongInput("#too-short", socket.id);
+        return;
     }
 
     socket.emit('wordsubmit', tryWord.innerHTML, email);

@@ -28,19 +28,16 @@ function getCurrentDate() {
   }
 
 app.get('/words', (req, res) => {
-    if(Object.keys(words).length === 0) {
-        axios.get(`http://127.0.0.1:5000/date/${getCurrentDate()}/words`)
-        .then(response => {
-            words = response.data;
-            res.send(response.data);
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).send('Internal server error');
-        });
-    } else {
-        res.send(words);
-    }
+    axios.get(`http://127.0.0.1:5000/date/${getCurrentDate()}/words`)
+    .then(response => {
+        words = response.data;
+        res.send(response.data);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).send('Internal server error');
+    });
+    
 })
 
 app.post('/loginGoogle', (req, res) => {
@@ -76,18 +73,20 @@ io.on('connection', (socket) => {
     });
 
     socket.on('wordsubmit', (word, user) => {
-        const wordObj = words.all_words.find((w) => w.word === word);
-        if (!wordObj || wordObj.foundBy) {
-            return;
-        }
         axios.post(`http://127.0.0.1:5000/date/${getCurrentDate()}/user/${user}/submit`, {"word": word})
         .then(response => {
-            words = response.data;
+            response.data.id = socket.id;
+            io.emit('pointsscore', response.data);
+
+            axios.get(`http://127.0.0.1:5000/date/${getCurrentDate()}/words`).then(res2 => {
+                words = res2.data;
+                io.emit('wordsubmit', words);
+            }).catch(error => { console.log(error); });
         })
         .catch(error => {
             console.log(error);
         });
-        socket.emit('wordsubmit', words);
+        
     });
 
     socket.on('disconnect', () => {
