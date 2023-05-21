@@ -46,9 +46,11 @@ function refreshFoundWords(words) {
     foundWords.innerHTML = '';
     for(var i = 0; i < words.all_words.length; i++) {
         if(words.all_words[i].foundBy) {
+            var newWordElement = document.createElement('li');
             var newWord = document.createElement('p');
             newWord.innerHTML = words.all_words[i].word.charAt(0) + words.all_words[i].word.slice(1).toLowerCase();
-            foundWords.appendChild(newWord);
+            newWordElement.appendChild(newWord);
+            foundWords.appendChild(newWordElement);
         }
     }
 }
