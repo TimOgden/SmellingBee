@@ -118,6 +118,20 @@ body {
     animation: fade .5s linear;
   }
 
+  #foundWordsContainer {
+    animation: expand .1s linear;
+  }
+
+  #foundWordsContainer.dropped {
+    animation: expand .1s linear;
+    height: 500px;
+  }
+
+  @keyframes expand {
+    0% { height: 20px }
+    100% { height: 500px }
+  }
+
   @keyframes fade {
     0%,100% { opacity: 1 }
     50% { opacity: 0 }

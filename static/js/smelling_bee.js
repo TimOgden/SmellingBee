@@ -170,6 +170,15 @@ function initialize_letters(letters){
     }
 }
 
+function toggleDropdown() {
+    var foundWordsContainer = document.getElementById('foundWordsContainer');
+    if(foundWordsContainer.classList.contains('dropped')) {
+        foundWordsContainer.classList.remove('dropped');
+    } else {
+        foundWordsContainer.classList.add('dropped');
+    }
+}
+
 function clickLetter(char) {
     return function curried_func(e){
         var tryword = document.getElementById("testword-" + socket.id);
