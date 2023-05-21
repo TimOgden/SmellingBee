@@ -173,14 +173,14 @@ function wrongInput(selector, id){
   
   }
   
-  function rightInput(selector){
+  function rightInput(selector, id){
     $(selector).fadeIn(1500).delay(500).fadeOut(1500);
     
-    clearInput();
+    clearInput(id);
   }
   
-  function clearInput(){
-    $("#testword").empty();
+  function clearInput(id){
+    $("#testword-" + id).empty();
   }
   
   function showPoints(pts){
