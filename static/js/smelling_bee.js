@@ -132,6 +132,32 @@ function clickLetter(char) {
     }
 }
 
+function wrongInput(selector){
+    $(selector).fadeIn(1000);
+    $(selector).fadeOut(500);
+    $("#cursor").hide();
+    $( "#testword" ).effect("shake", {times:2.5}, 450, function(){
+        clearInput();
+        $("#cursor").show();
+      } );
+  
+  }
+  
+  function rightInput(selector){
+    $(selector).fadeIn(1500).delay(500).fadeOut(1500);
+    
+    clearInput();
+  }
+  
+  function clearInput(){
+    $("#testword").empty();
+  }
+  
+  function showPoints(pts){
+    $(".points").html("+" + pts);
+  
+  }
+
 Array.prototype.shuffle = function() {
     let input = this;
     for (let i = input.length-1; i >=0; i--) {
@@ -178,6 +204,10 @@ function submitWord() {
     var tryWord = document.getElementById('testword-' + socket.id);
     if (tryWord.innerHTML.length === 0) {
         return;
+    }
+
+    if(tryWord.innerHTML.length < 4){ 
+        wrongInput("#too-short");
     }
 
     socket.emit('wordsubmit', tryWord.innerHTML, email);

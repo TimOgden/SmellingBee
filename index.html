@@ -5,6 +5,7 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <link rel="icon" href="static/cute_bee.png" type="image/icon type">
     <link rel="stylesheet" type="text/css" href="styles/style.css" />
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <style>
       
 
@@ -28,6 +29,21 @@
     </div>
     <ul id="users"></ul>
     <ul id="cursors"></ul>
+
+    <!-- NOTIFICATIONS -->
+    <div class="container" style="height:50px; align-items:center;">
+      <div>
+        <p id="too-short" class="notifications">Too Short</p>
+        <p id="good" class="notifications">Good! <span class="points"></span></p>
+        <p id="great" class="notifications">Great! <span class="points"></span></p>
+        <p id="amazing" class="notifications">Amazing! <span class="points"></span></p>
+        <p id="pangram" class="notifications">Pangram! <span class="points"></span></p>
+        <p id="already-found" class="notifications">Already Found</p>
+        <p id="invalid-word" class="notifications">Invalid Word</p>
+        <p id="miss-center" class="notifications">Missing Center Letter</p>
+      </div>
+    
+    </div>
     <div class="gameBody">
       <ul id="hexGrid"></ul>
   
