@@ -32,6 +32,7 @@ function loggedInThroughGoogle(googleUser) {
             words = data;
             letters = words.all_letters;
             initialize_letters(words.all_letters);
+            refreshFoundWords(words);
         },
         error: function(error) {
             console.log(error);
@@ -40,8 +41,21 @@ function loggedInThroughGoogle(googleUser) {
     
 }
 
+function refreshFoundWords(words) {
+    var foundWords = document.getElementById('foundWords');
+    foundWords.innerHTML = '';
+    for(var i = 0; i < words.all_words.length; i++) {
+        if(words.all_words[i].foundBy) {
+            var newWord = document.createElement('p');
+            newWord.innerHTML = words.all_words[i].word.charAt(0) + words.all_words[i].word.slice(1).toLowerCase();
+            foundWords.appendChild(newWord);
+        }
+    }
+}
+
 socket.on('wordsubmit', function(words) {
     this.words = words;
+    refreshFoundWords(words);
 });
 
 socket.on('pointsscore', function(obj) {
