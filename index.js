@@ -68,7 +68,14 @@ io.on('connection', (socket) => {
     });
 
     socket.on('wordupdate', (html) => {
-        cursors[socket.id] = html;
+        if(typeof cursors[socket.id] === 'undefined') {
+            cursor[socket.id] = {
+                tryword: html,
+                color: '[255, 187, 0]' // default yellow color
+            }
+        } else {
+            cursors[socket.id].tryword = html;
+        }
         socket.broadcast.emit('wordrefresh', html, socket.id);
     });
 
