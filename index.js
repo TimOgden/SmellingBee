@@ -38,6 +38,19 @@ app.get('/yesterday', (req, res) => {
         console.log(err);
         res.status(500).send('Interal server error');
     });
+});
+
+app.get('/todaysHints', (req, res) => {
+    let date = new Date();
+
+    const dateStr = getCurrentDate(date);
+    axios.get(`http://127.0.0.1:5000/date/${dateStr}/todaysHints`)
+    .then(response => {
+        res.send(response.data);
+    }).catch(err => {
+        console.log(err);
+        res.status(500).send('Interal server error');
+    });
 })
 
 app.get('/words', (req, res) => {
@@ -93,12 +106,12 @@ io.on('connection', (socket) => {
     });
 
     socket.on('wordsubmit', (word, user) => {
-        axios.post(`http://127.0.0.1:5000/date/${getCurrentDate()}/user/${user}/submit`, {"word": word})
+        axios.post(`http://127.0.0.1:5000/date/${getCurrentDate(new Date())}/user/${user}/submit`, {"word": word})
         .then(response => {
             response.data.id = socket.id;
             io.emit('pointsscore', response.data);
 
-            axios.get(`http://127.0.0.1:5000/date/${getCurrentDate()}/words`).then(res2 => {
+            axios.get(`http://127.0.0.1:5000/date/${getCurrentDate(new Date())}/words`).then(res2 => {
                 words = res2.data;
                 io.emit('wordsubmit', words);
             }).catch(error => { console.log(error); });
