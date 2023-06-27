@@ -48,8 +48,18 @@ function refreshFoundWords(words) {
         if(words.all_words[i].foundBy) {
             var newWordElement = document.createElement('li');
             var newWord = document.createElement('p');
+            var userImage = document.createElement('img');
+            // userImage.setAttribute('id', `profile-picture-${id}`);
+            userImage.setAttribute('src', words.all_words[i].profilePicture);
+            userImage.setAttribute('class', 'profile-picture');
+            // userImage.setAttribute('style', `border-color: rgb(${val.color.slice(1, -1)})`);
+
             newWord.innerHTML = words.all_words[i].word.charAt(0) + words.all_words[i].word.slice(1).toLowerCase();
             newWordElement.appendChild(newWord);
+            if (words.all_words[i].profilePicture) {
+                newWordElement.appendChild(userImage);
+            }
+            
             foundWords.appendChild(newWordElement);
         }
     }

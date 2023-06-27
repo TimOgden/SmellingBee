@@ -106,7 +106,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('wordsubmit', (word, user) => {
-        axios.post(`http://127.0.0.1:5000/date/${getCurrentDate(new Date())}/user/${user}/submit`, {"word": word})
+        axios.post(`http://127.0.0.1:5000/date/${getCurrentDate(new Date())}/user/${user}/submit`, {"word": word, "profilePicture": cursors[socket.id].profilePicture})
         .then(response => {
             response.data.id = socket.id;
             io.emit('pointsscore', response.data);
