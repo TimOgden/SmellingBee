@@ -290,3 +290,9 @@ body {
   padding: 5px;
   user-select: none;
 }
+
+#pointsSlider {
+  pointer-events: none;
+  width: 90%;
+  margin-bottom: 15px;
+}

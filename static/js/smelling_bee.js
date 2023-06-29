@@ -1,6 +1,7 @@
 var socket = io();
 var cursorsElement = document.getElementById('cursors');
 var usersElement = document.getElementById('users');
+var pointsSliderElement = document.getElementById('pointsSlider');
 var email = '';
 
 var letters = '';
@@ -33,6 +34,7 @@ function loggedInThroughGoogle(googleUser) {
             letters = words.all_letters;
             initialize_letters(words.all_letters);
             refreshFoundWords(words);
+            updatePoints(words);
         },
         error: function(error) {
             console.log(error);
@@ -40,6 +42,12 @@ function loggedInThroughGoogle(googleUser) {
     })
     
 }
+
+function updatePoints(words) {
+    pointsSliderElement.setAttribute('max', words.max_points);
+    pointsSliderElement.setAttribute('value', words.current_points);
+}
+
 
 function refreshFoundWords(words) {
     var foundWords = document.getElementById('foundWords');
@@ -69,6 +77,7 @@ function refreshFoundWords(words) {
 socket.on('wordsubmit', function(words) {
     this.words = words;
     refreshFoundWords(words);
+    updatePoints(words);
 });
 
 socket.on('pointsscore', function(obj) {
