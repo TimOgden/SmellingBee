@@ -212,7 +212,7 @@ function wrongInput(selector, id){
     $(selector).fadeIn(1000);
     $(selector).fadeOut(500);
     $(`#cursor-${id}`).hide();
-    $( `#testword-${id}` ).effect("shake", {times:2.5}, 450, function(){
+    $( `#testword-${id}` ).effect("shake", {times:2.5}, 250, function(){
         clearInput();
         $(`#cursor-${id}`).show();
       } );
@@ -220,7 +220,7 @@ function wrongInput(selector, id){
   }
   
   function rightInput(selector, id){
-    $(selector).fadeIn(1500).delay(500).fadeOut(1500);
+    $(selector).fadeIn(200).delay(500).fadeOut(1500);
     
     clearInput(id);
   }
