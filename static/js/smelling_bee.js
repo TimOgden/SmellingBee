@@ -50,6 +50,7 @@ function refreshFoundWords(words) {
             var newWord = document.createElement('p');
             var userImage = document.createElement('img');
             // userImage.setAttribute('id', `profile-picture-${id}`);
+            userImage.setAttribute('referrer', 'no-referrer');
             userImage.setAttribute('src', words.all_words[i].profilePicture);
             userImage.setAttribute('class', 'profile-picture');
             // userImage.setAttribute('style', `border-color: rgb(${val.color.slice(1, -1)})`);
@@ -135,6 +136,7 @@ function addTextBox(id, val) {
 
     var users = document.getElementById('users');
     var userImage = document.createElement('img');
+    userImage.setAttribute('referrerpolicy', 'no-referrer');
     userImage.setAttribute('id', `profile-picture-${id}`);
     userImage.setAttribute('src', val.profilePicture);
     userImage.setAttribute('class', 'profile-picture');
