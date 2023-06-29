@@ -2,6 +2,7 @@ var socket = io();
 var cursorsElement = document.getElementById('cursors');
 var usersElement = document.getElementById('users');
 var pointsSliderElement = document.getElementById('pointsSlider');
+var pointsCategoryElement = document.getElementById('pointsCategory');
 var email = '';
 
 var letters = '';
@@ -46,6 +47,30 @@ function loggedInThroughGoogle(googleUser) {
 function updatePoints(words) {
     pointsSliderElement.setAttribute('max', words.max_points);
     pointsSliderElement.setAttribute('value', words.current_points);
+
+    var score = words.current_points / words.max_points;
+    var scoreCategory = 'Beginner';
+
+    if(score === 1) {
+        scoreCategory = 'Queen Bee';
+    } else if(score >= .7) {
+        scoreCategory = 'Genius';
+    } else if(score >= .5) {
+        scoreCategory = 'Amazing';
+    } else if(score >= .4) {
+        scoreCategory = 'Great';
+    } else if(score >= .25) {
+        scoreCategory = 'Nice';
+    } else if(score >= .15) {
+        scoreCategory = 'Solid';
+    } else if(score >= .08) {
+        scoreCategory = 'Good';
+    } else if(score >= .05) {
+        scoreCategory = 'Moving Up';
+    } else if(score >= .02) {
+        scoreCategory = 'Good Start';
+    }
+    pointsCategoryElement.innerHTML = scoreCategory;
 }
 
 

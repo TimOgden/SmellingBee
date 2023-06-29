@@ -291,8 +291,17 @@ body {
   user-select: none;
 }
 
-#pointsSlider {
+.pointsContainer {
+  display:-webkit-inline-flex; 
   pointer-events: none;
   width: 90%;
   margin-bottom: 15px;
+}
+
+.pointsContainer h4 {
+  padding-right: 10px;
+}
+
+#pointsSlider {
+  width: 90%;
 }
