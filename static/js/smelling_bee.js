@@ -149,6 +149,7 @@ socket.on('redraw cursors', function(cursors_obj) {
 
 function addTextBox(id, val) {
     var row = document.createElement('li');
+    row.setAttribute('id', 'cursorrow-' + id);
     var inputword = document.createElement('p');
     inputword.setAttribute('id', 'inputword-' + id);
     var testword = document.createElement('span');
@@ -236,10 +237,10 @@ function clickLetter(char) {
 function wrongInput(selector, id){
     $(selector).fadeIn(1000);
     $(selector).fadeOut(500);
-    $(`#cursor-${id}`).hide();
-    $( `#testword-${id}` ).effect("shake", {times:2.5}, 250, function(){
+    // $(`#cursor-${id}`).hide();
+    $( `#cursorrow-${id}` ).effect("shake", {times:2.5}, 250, function(){
         clearInput();
-        $(`#cursor-${id}`).show();
+        // $(`#cursor-${id}`).show();
       } );
   
   }
