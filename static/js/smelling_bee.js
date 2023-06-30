@@ -322,15 +322,22 @@ socket.on('wordrefresh', function(html, id) {
     tryword.innerHTML = html;
 });
 
-$(document).on('keypress', function(e) {
+$(document).on('keydown', function(e) {
+    var tryword = document.getElementById('testword-' + socket.id);
     if(e.key === 'Enter') {
         submitWord();
+        return;
+    }
+    if(e.key === 'Backspace') {
+        var currentWord = tryword.innerHTML;
+        if (currentWord.length) {
+            tryword.innerHTML = currentWord.slice(0, currentWord.length - 1);
+        }
         return;
     }
     
     var letter = e.key.toUpperCase();
     if(/[A-Z]/.test(letter) && letters.includes(letter)) {
-        var tryword = document.getElementById('testword-' + socket.id);
         tryword.innerHTML += letter;
     }
 });
