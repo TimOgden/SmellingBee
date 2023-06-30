@@ -341,5 +341,6 @@ $(document).on('keydown', function(e) {
     var letter = e.key.toUpperCase();
     if(/[A-Z]/.test(letter) && letters.includes(letter)) {
         tryword.innerHTML += letter;
+        socket.emit('wordupdate', tryword.innerHTML);
     }
 });
