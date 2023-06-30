@@ -80,6 +80,7 @@ function refreshFoundWords(words) {
     for(var i = 0; i < words.all_words.length; i++) {
         if(words.all_words[i].foundBy) {
             var newWordElement = document.createElement('li');
+            newWordElement.setAttribute('class', 'foundWordItem');
             var newWord = document.createElement('p');
             var userImage = document.createElement('img');
             // userImage.setAttribute('id', `profile-picture-${id}`);

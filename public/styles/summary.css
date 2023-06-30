@@ -1,0 +1,46 @@
+#foundWordsContainer {
+    display: flex;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 1px;
+    width: 90%;
+    margin: 0 auto;
+    overflow: auto;
+    height: 500px;
+  }
+  
+  #foundWordsContainer ul {
+    list-style-type: none; /* Removes bullet points */
+    display: inline-block;
+    margin: 0;
+    margin-top: -5px;
+    margin-left: 10px;
+    padding: 0;
+  }
+  
+  #foundWordsContainer ul li {
+    float: left;
+    padding: 5px;
+    user-select: none;
+  }
+
+  .foundWordItem {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    position: relative;
+  }
+
+  .foundWordItem img {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+  }
+
+  .profile-picture {
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+    max-width: 16px;
+  }

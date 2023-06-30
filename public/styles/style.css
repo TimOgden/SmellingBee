@@ -285,9 +285,23 @@ body {
 }
 
 #foundWordsContainer ul li {
-  float: right;
-  padding: 5px;
+  float: left;
+  padding: 10px;
   user-select: none;
+}
+
+.foundWordItem {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.foundWordItem img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0;
 }
 
 .pointsContainer {
