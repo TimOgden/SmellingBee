@@ -321,3 +321,16 @@ socket.on('wordrefresh', function(html, id) {
     var tryword = document.getElementById("testword-" + id);
     tryword.innerHTML = html;
 });
+
+$(document).on('keypress', function(e) {
+    if(e.key === 'Enter') {
+        submitWord();
+        return;
+    }
+    
+    var letter = e.key.toUpperCase();
+    if(/[A-Z]/.test(letter) && letters.includes(letter)) {
+        var tryword = document.getElementById('testword-' + socket.id);
+        tryword.innerHTML += letter;
+    }
+});
