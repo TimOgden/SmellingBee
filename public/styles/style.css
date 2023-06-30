@@ -277,8 +277,7 @@ body {
 
 #foundWordsContainer ul {
   list-style-type: none; /* Removes bullet points */
-  display: flex;
-  flex-wrap: wrap;
+  display: inline-block;
   margin: 0;
   margin-top: -5px;
   margin-left: 10px;
@@ -286,7 +285,7 @@ body {
 }
 
 #foundWordsContainer ul li {
-  flex: 0 0 2%; /* Adjust width as needed */
+  float: right;
   padding: 5px;
   user-select: none;
 }
