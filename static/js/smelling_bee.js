@@ -227,21 +227,6 @@ function toggleDropdown() {
     }
 }
 
-function getCurrentDate(date) {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return `${year}-${month}-${day}`;
-  }
-
-function openTodaysHints() {
-    var date = new Date();
-
-    var url = `http://localhost:5000/date/${getCurrentDate(date)}/todaysHints`;
-    console.log(url);
-    window.open(url, '_blank').focus();
-}
-
 function clickLetter(char) {
     return function curried_func(e){
         var tryword = document.getElementById("testword-" + socket.id);
