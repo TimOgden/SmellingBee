@@ -31,7 +31,7 @@ app.get('/yesterday', (req, res) => {
     date.setDate(date.getDate() - 1);
 
     const dateStr = getCurrentDate(date);
-    axios.get(`http://127.0.0.1:5000/date/${dateStr}/summary`)
+    axios.get(`${process.env.APP_ROUTE}/date/${dateStr}/summary`)
     .then(response => {
         res.send(response.data);
     }).catch(err => {
@@ -44,7 +44,7 @@ app.get('/todaysHints', (req, res) => {
     let date = new Date();
 
     const dateStr = getCurrentDate(date);
-    axios.get(`http://127.0.0.1:5000/date/${dateStr}/todaysHints`)
+    axios.get(`${process.env.APP_ROUTE}/date/${dateStr}/todaysHints`)
     .then(response => {
         res.send(response.data);
     }).catch(err => {
@@ -54,7 +54,7 @@ app.get('/todaysHints', (req, res) => {
 })
 
 app.get('/words', (req, res) => {
-    axios.get(`http://127.0.0.1:5000/date/${getCurrentDate(new Date())}/words`)
+    axios.get(`${process.env.APP_ROUTE}/date/${getCurrentDate(new Date())}/words`)
     .then(response => {
         words = response.data;
         res.send(response.data);
@@ -67,7 +67,7 @@ app.get('/words', (req, res) => {
 })
 
 app.post('/loginGoogle', (req, res) => {
-    axios.post('http://127.0.0.1:5000/loginGoogle', req.body)
+    axios.post(`${process.env.APP_ROUTE}/loginGoogle`, req.body)
     .then(response => {
         res.send(response.data);
     })
@@ -106,12 +106,12 @@ io.on('connection', (socket) => {
     });
 
     socket.on('wordsubmit', (word, user) => {
-        axios.post(`http://127.0.0.1:5000/date/${getCurrentDate(new Date())}/user/${user}/submit`, {"word": word, "profilePicture": cursors[socket.id].profilePicture})
+        axios.post(`${process.env.APP_ROUTE}/date/${getCurrentDate(new Date())}/user/${user}/submit`, {"word": word, "profilePicture": cursors[socket.id].profilePicture})
         .then(response => {
             response.data.id = socket.id;
             io.emit('pointsscore', response.data);
 
-            axios.get(`http://127.0.0.1:5000/date/${getCurrentDate(new Date())}/words`).then(res2 => {
+            axios.get(`${process.env.APP_ROUTE}/date/${getCurrentDate(new Date())}/words`).then(res2 => {
                 words = res2.data;
                 io.emit('wordsubmit', words);
             }).catch(error => { console.log(error); });
@@ -131,6 +131,6 @@ io.on('connection', (socket) => {
 
 
 
-server.listen(3000, () => {
-    console.log('listening on *:3000');
+server.listen(process.env.PORT_NUMBER, () => {
+    console.log(`listening on *:${process.env.PORT_NUMBER}`);
 });
