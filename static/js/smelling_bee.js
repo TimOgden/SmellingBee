@@ -304,6 +304,7 @@ function deleteLetter() {
 }
 
 function submitWord() {
+    document.activeElement.blur();
     var tryWord = document.getElementById('testword-' + socket.id);
     if (tryWord.innerHTML.length === 0) {
         return;
