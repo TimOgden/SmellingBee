@@ -1,7 +1,12 @@
 runtime: nodejs18
-api_version: 1
-threadsafe: true
 
 handlers:
-  - url: \
-    script: app
+  - url: /static
+    static_dir: static
+
+  - url: /.*
+    script: index.js
+
+env_variables:
+  PORT_NUMBER: 8080
+  APP_ROUTE: https://speelingbee-backend-dot-speelingbee.uc.r.appspot.com

@@ -130,7 +130,8 @@ io.on('connection', (socket) => {
 });
 
 
-
-server.listen(process.env.PORT_NUMBER, () => {
-    console.log(`listening on *:${process.env.PORT_NUMBER}`);
+const PORT = process.env.PORT_NUMBER || 8080;
+server.listen(PORT, () => {
+    console.log(`listening on *:${PORT}`);
+    console.log(`Backend route: ${process.env.APP_ROUTE}`);
 });
